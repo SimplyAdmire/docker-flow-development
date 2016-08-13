@@ -50,3 +50,10 @@ To use environment variables we use `.env` files which are loaded in order. Firs
 the file `Environment/.env` is loaded, followed by the `./app/Build/Environment/.env`
 file which is required to exist. Optionally the file `./app/Build/Environment/.env.local`
 is loaded (only if it exists) so a developer can have custom configuration.
+
+### Setting the docker-compose project name
+
+By default docker-compose creates a project name (which is used in the container names)
+by using the folder name of `docker-compose.yml` file. This would lead to duplicate container
+names as the parent folder is always `environment`. To set a your own project name you
+can set the `PROJECT_NAME` variable in your .env file.

@@ -1,0 +1,18 @@
+version: "2"
+
+services:
+  npm:
+    image: "simplyadmire/npm"
+    working_dir: "/app/"
+    entrypoint: "npm --unsafe-perm"
+    volumes:
+      - "./../../app/:/app/"
+  composer:
+    image: "composer/composer:1.1"
+    working_dir: "/app/"
+    volumes:
+      - "./../../app/:/app/"
+      - "~/.composer/auth.json:/composer/auth.json"
+    env_file:
+      - "./../.env"
+      - "./../../app/Build/Environment/.env"

@@ -1,0 +1,46 @@
+version: "2"
+
+volumes:
+  mysqlData:
+    driver: local
+
+services:
+  webserver:
+    image: "nginx:1.11"
+    ports:
+      - "80${PORTSUFFIX}:80"
+      - "84${PORTSUFFIX}:443"
+    links:
+      - "php"
+    volumes:
+      - "./Files/nginx.conf:/etc/nginx/nginx.conf"
+      - "./../app/:/var/www/"
+      - "./logs/webserver/:/var/log/nginx/"
+    env_file:
+      - "./.env"
+      - "./../app/Build/Environment/.env"
+  php:
+    build: "./Docker/php"
+    command: "php-fpm7.0 -F"
+    expose:
+      - "9000"
+    volumes:
+      - "./Files/php-fpm-pool.conf:/etc/php/7.0/fpm/pool.d/www.conf"
+      - "./../app/:/var/www/"
+    working_dir: "/var/www/"
+    env_file:
+      - "./.env"
+      - "./../app/Build/Environment/.env"
+    links:
+      - "db"
+  db:
+    image: "mariadb"
+    env_file:
+      - "./.env"
+      - "./../app/Build/Environment/.env"
+    volumes:
+      - "mysqlData:/var/lib/mysql"
+      - "./logs/db/:/var/log/mysql/"
+      - "./Files/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf"
+    ports:
+      - "33${PORTSUFFIX}:3306"

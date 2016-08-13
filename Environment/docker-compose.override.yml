@@ -1,0 +1,13 @@
+version: "2"
+
+services:
+  php:
+    volumes:
+      - "./Docker/php/ssmtp.conf:/etc/ssmtp/ssmtp.conf"
+      - "./Docker/php/mailcatcher.ini:/etc/php/7.0/cli/conf.d/mailcatcher.ini"
+    links:
+      - "mailcatcher"
+  mailcatcher:
+    image: "schickling/mailcatcher"
+    ports:
+      - "10${PORTSUFFIX}:1080"

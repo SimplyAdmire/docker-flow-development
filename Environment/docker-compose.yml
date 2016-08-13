@@ -15,7 +15,7 @@ services:
     volumes:
       - "./Files/nginx.conf:/etc/nginx/nginx.conf"
       - "./../app/:/var/www/"
-      - "./logs/webserver/:/var/log/nginx/"
+      - "./../logs/webserver/:/var/log/nginx/"
     env_file:
       - "./.env"
       - "./../app/Build/Environment/.env"
@@ -40,7 +40,7 @@ services:
       - "./../app/Build/Environment/.env"
     volumes:
       - "mysqlData:/var/lib/mysql"
-      - "./logs/db/:/var/log/mysql/"
+      - "./../logs/db/:/var/log/mysql/"
       - "./Files/mariadb.cnf:/etc/mysql/conf.d/mariadb.cnf"
     ports:
       - "33${PORTSUFFIX}:3306"

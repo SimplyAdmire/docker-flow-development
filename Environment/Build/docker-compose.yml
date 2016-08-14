@@ -4,8 +4,9 @@ services:
   npm:
     image: "simplyadmire/npm"
     working_dir: "/app/"
-    entrypoint: "npm --unsafe-perm"
+    entrypoint: "/root/run-npm.sh"
     volumes:
+      - "./../Files/run-npm.sh:/root/run-npm.sh"
       - "./../../app/:/app/"
   composer:
     image: "composer/composer:1.1"

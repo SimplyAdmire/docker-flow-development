@@ -28,4 +28,5 @@ services:
       OWNER: 1000
       GROUP: 33
     volumes:
+      - "./Files/rsyncd.conf:/etc/rsyncd.conf"
       - "project-data:/var/www/"
